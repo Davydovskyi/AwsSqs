@@ -1,0 +1,25 @@
+spring:
+  config:
+    import: optional:file:.env[.properties]
+  r2dbc:
+    url: ${R2DBC_URL}
+    username: ${R2DBC_USER}
+    password: ${R2DBC_PASSWORD}
+  flyway:
+    url: ${DB_URL}
+    user: ${DB_USER}
+    password: ${DB_PASSWORD}
+    locations: classpath:db/migration
+  cloud:
+    aws:
+      credentials:
+        access-key: ${AWS_ACCESS_KEY}
+        secret-key: ${AWS_SECRET_KEY}
+      region:
+        static: ${AWS_REGION}
+
+sqs:
+  notifications:
+    queue:
+      name: ${SQS_QUEUE_NAME}
+      region: ${SQS_QUEUE_NAME}

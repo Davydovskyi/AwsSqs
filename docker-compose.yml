@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  awssqs:
+    image: awssqs-demo:latest
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - R2DBC_URL=r2dbc:pool:postgressql://host.docker.internal:5432/sqs_demo
+      - R2DBC_USER=postgres
+      - R2DBC_PASSWORD=postgres
+      - DB_URL=jdbc:postgresqlsql://host.docker.internal:5432/sqs_demo
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - AWS_ACCESS_KEY=[PUT_YOUR_ACCESS_KEY]
+      - AWS_SECRET_KEY=[PUT_YOUR_SECRET_KEY]
+      - AWS_REGION=us-east-1
+      - SQS_QUEUE_NAME=[PUT_YOUR_QUEUE_NAME]
+      - SQS_QUEUE_REGION=us-east-1
+    deploy:
+      mode: replicated
+      replicas: 3
